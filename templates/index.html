@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Employee Management System - AWS CI/CD Deployment</title>
+</head>
+
+<body>
+
+    <h1>Employee Management System - AWS CI/CD Deployment</h1>
+
+    <form method="POST" action="/add">
+
+
+        <input type="text" name="employee_name" placeholder="Name" required>
+
+        <input type="email" name="employee_email" placeholder="Email" required>
+
+        <input type="text" name="employee_department" placeholder="Department" required>
+
+        <button type="submit">
+            Add Employee
+        </button>
+
+
+    </form>
+
+    <h2>Employees</h2>
+
+    <ul>
+
+        {% for employee in employees %}
+
+        <li>
+
+            ID: {{ employee[0] }}
+            <br>
+
+            Name: {{ employee[1] }}
+            <br>
+
+            Email: {{ employee[2] }}
+            <br>
+
+            Department: {{ employee[3] }}
+            <br>
+
+            <a href="/delete/{{ employee[0] }}">
+            Delete
+            </a>
+
+            <hr>
+
+        </li>
+
+        {% endfor %}
+
+    </ul>
+
+
+</body>
+
+</html>
