@@ -1,7 +1,23 @@
+from prometheus_client import Counter
+from prometheus_client import generate_latest
+from prometheus_client import CONTENT_TYPE_LATEST
 from db import get_connection
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, Response
 
 app = Flask(__name__)
+
+REQUEST_COUNT = Counter(
+    "app_requests_total",
+    "Total number of requests"
+)
+
+@app.route("/metrics")
+def metrics():
+
+    return Response(
+        generate_latest(),
+        mimetype=CONTENT_TYPE_LATEST
+    )
 
 
 @app.route("/health")
@@ -33,6 +49,8 @@ def health():
 
 @app.route("/")
 def home():
+
+    REQUEST_COUNT.inc()
     
     conn = get_connection()
 
